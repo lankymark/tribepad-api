@@ -40,31 +40,31 @@ Use the command line in the new directory and run the following
     ``phpunit --configuration ../../phpunit.xml``
     
 10.  Download Postman / Fiddler 4 / any other API development environment. Use this to replicate the API POST to the ``/api/references`` route using a json structure like the following
-
-    ``{
-      "reference": 1,
-      "email": "test@yopmail.com",
-      "providers": {
-      "mind-x": {
-      "status": "passed",
-      "score": 13,
-      "failed": 2
-      },
-      "shl": {
-      "status": "passed",
-      "score": 29,
-      "failed": 1
-      },
-      "talentq": {
-      "status": "failed",
-      "score": 2,
-      "failed": 25
-      }
-      }
-    }``
     
-    Note: POST request must be sent with the content type of ``application/json`` and follow the rules set out in the pdf. This API also a maximum length of JSON of a 1000 and uses IP whitelisting for added security. However, for testing purposes this can be commented out in ``App/Http/Requests/ReferencesAPIRequest.php``  
+     Note: POST request must be sent with the content type of ``application/json`` and follow the rules set out in the pdf. This API also a maximum length of JSON of a 1000 and uses IP whitelisting for added security. However, for testing purposes this can be commented out in ``App/Http/Requests/ReferencesAPIRequest.php``  
 
+
+    {
+        "reference": 1,
+        "email": "test@yopmail.com",
+        "providers": {
+            "mind-x": {
+                "status": "passed",
+                "score": 13,
+                "failed": 2
+        },
+        "shl": {
+                "status": "passed",
+                "score": 29,
+                "failed": 1
+        },
+        "talentq": {
+                "status": "failed",
+                "score": 2,
+                 "failed": 25
+        }
+    }
+   
 ## API Routes
 
 Get a singular reference
