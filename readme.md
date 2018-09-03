@@ -1,65 +1,93 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## Technologies
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Laravel 5.6 (php 7.2) was used as the backend language for this project due to the built-in tools available. It was also a chance to catch up on Laravel since I last used it, this is why I have used version 5.6 so I could learn some of the newest features that it has to offer.
 
-## About Laravel
+ReactJS was used as the client side framework. React is a very powerful and easy to use front-end framework. It was chosen because it can be linked easily with Laravel using webpack and mixin. It is also a framework I have been looking to use more and more in the future because of the use of states and components allowing for more maintainable and resuable code.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+MySQL was used as the database. This was used so I could take advantage of the simplicity and security of Laravel's Eloquent ORM. Using a relational database also allows for restriction using foreign keys, which important with thetable structure I have chosen and prevents against the accumulation of bad data.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Installation
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+1.  Use git clone to download the project into your directory.
+Use the command line in the new directory and run the following
 
-## Learning Laravel
+    `` composer install `` 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+    to install the dependencies required by Laravel
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+    `` npm install ``
 
-## Laravel Sponsors
+    to install the dependencies required by the React Client, optional for just testing as the javascript file for the application is already compiled
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+2.  Setup a local database and create a new schema for this project 
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
+3.  Change the ```.env``` file in the applications root folder so it uses your local database and the new schema
 
-## Contributing
+4.  Run ``php artisan migrate`` to populate the database schema with the correct tables for the project
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5.  Run ``php artisan serve`` to fire up the server
 
-## Security Vulnerabilities
+6.  Test at `http://localhost:8000/references` 
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+7.  To run the feature and unit tests go to the root directory and use the following commands
 
-## License
+    ``cd vendor/bin``
+    
+    ``phpunit --configuration ../../phpunit.xml``
+    
+8.  Download Postman / Fiddler 4 / any other API development environment. Use this to replicate the API POST to the ``/api/references`` route using a json structure like the following
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    ``{
+      "reference": 1,
+      "email": "test@yopmail.com",
+      "providers": {
+      "mind-x": {
+      "status": "passed",
+      "score": 13,
+      "failed": 2
+      },
+      "shl": {
+      "status": "passed",
+      "score": 29,
+      "failed": 1
+      },
+      "talentq": {
+      "status": "failed",
+      "score": 2,
+      "failed": 25
+      }
+      }
+    }``
+    
+    Note: POST request must be sent with the content type of ``application/json`` and follow the rules set out in the pdf. This API also a maximum length of JSON of a 1000 and uses IP whitelisting for added security. However, for testing purposes this can be commented out in ``App/Http/Requests/ReferencesAPIRequest.php``  
+
+## API Routes
+
+Get a singular reference
+
+``GET   /api/reference/{reference}``
+
+Get all references
+
+``GET   /api/references`` 
+
+Get all references by email
+
+``GET   /api/references/{email}``
+
+Create or update a reference
+
+``POST  /api/reference``
+
+``PUT   /api/reference``
+
+Delete a reference
+
+``DELETE    /api/reference/{reference}``
+
+Get reference providers
+
+``GET   /api/reference/providers/{id}``
+
+
+

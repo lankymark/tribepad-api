@@ -21,6 +21,7 @@ Route::middleware('throttle:60,1')->group(function() {
 // Get all references by email
     Route::get('references/{email}', 'API\ReferencesAPIController@index');
 // Create or update a reference
+    Route::put('reference', 'API\ReferencesAPIController@store');
     Route::post('reference', 'API\ReferencesAPIController@store');
 // Delete a reference
     Route::delete('reference/{id}', 'API\ReferencesAPIController@destroy');
