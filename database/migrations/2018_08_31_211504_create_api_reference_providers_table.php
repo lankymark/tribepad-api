@@ -21,8 +21,8 @@ class CreateApiReferenceProvidersTable extends Migration
             $table->unsignedTinyInteger('string');
             $table->integer('failed');
             $table->timestamps();
-            $table->primary('id');
             $table->unique(['reference', 'provider']);
+            $table->foreign('reference')->references('reference')->on('api_reference');
         });
     }
 

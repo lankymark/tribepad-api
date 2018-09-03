@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 class ReferencesAPIRequest extends FormRequest
 {
     private $_trustedProxies = [
+        '127.0.0.1',
         '10.0.2.2'
     ];
 

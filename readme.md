@@ -21,21 +21,25 @@ Use the command line in the new directory and run the following
 
 2.  Setup a local database and create a new schema for this project 
 
-3.  Change the ```.env``` file in the applications root folder so it uses your local database and the new schema
+3.  Copy the ``.env.example`` file in the application root and name it ``.env``
 
-4.  Run ``php artisan migrate`` to populate the database schema with the correct tables for the project
+4.  Change the ```.env``` file in the applications root folder so it uses your local database and the new schema
 
-5.  Run ``php artisan serve`` to fire up the server
+5.  Run ``php artisan migrate`` to populate the database schema with the correct tables for the project
 
-6.  Test at `http://localhost:8000/references` 
+6.  Run ``php artisan key:generate`` to generate an encryption key in the ``.env`` file
 
-7.  To run the feature and unit tests go to the root directory and use the following commands
+7.  Run ``php artisan serve`` to fire up the server
+
+8.  Test at `http://localhost:8000/references` 
+
+9.  To run the feature and unit tests go to the root directory and use the following commands
 
     ``cd vendor/bin``
     
     ``phpunit --configuration ../../phpunit.xml``
     
-8.  Download Postman / Fiddler 4 / any other API development environment. Use this to replicate the API POST to the ``/api/references`` route using a json structure like the following
+10.  Download Postman / Fiddler 4 / any other API development environment. Use this to replicate the API POST to the ``/api/references`` route using a json structure like the following
 
     ``{
       "reference": 1,
