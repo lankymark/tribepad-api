@@ -39,14 +39,12 @@ Use the command line in the new directory and run the following
     
     ``phpunit --configuration ../../phpunit.xml``
     
-10.  Download Postman / Fiddler 4 / any other API development environment. Use this to replicate the API POST to the ``/api/references`` route using a json structure like the following
-    
-     Note: POST request must be sent with the content type of ``application/json`` and follow the rules set out in the pdf. This API also a maximum length of JSON of a 1000 and uses IP whitelisting for added security. However, for testing purposes this can be commented out in ``App/Http/Requests/ReferencesAPIRequest.php``  
+10.  Download Postman / Fiddler 4 / any other API development environment. Use this to replicate the API POST to the ``/api/references`` route using a json structure below (this particular json will populate the record for the tests) the following
 
 
     {
-        "reference": 1,
-        "email": "test@yopmail.com",
+        "reference": 10,
+        "email": "test@test.com",
         "providers": {
             "mind-x": {
                 "status": "passed",
@@ -64,6 +62,9 @@ Use the command line in the new directory and run the following
                  "failed": 25
         }
     }
+    
+    
+_Note: POST request must be sent with the content type of ``application/json`` and follow the rules set out in the pdf. This API also a maximum length of JSON of a 1000 and uses IP whitelisting for added security. However, for testing purposes this can be commented out in ``App/Http/Requests/ReferencesAPIRequest.php``_    
    
 ## API Routes
 

@@ -18,7 +18,7 @@ class CreateApiReferenceProvidersTable extends Migration
             $table->string('reference');
             $table->string('provider');
             $table->enum('status', ['passed','failed','pending']);
-            $table->unsignedTinyInteger('string');
+            $table->unsignedTinyInteger('score');
             $table->integer('failed');
             $table->timestamps();
             $table->unique(['reference', 'provider']);

@@ -17,7 +17,7 @@ class CreateApiReferenceProviderHistoryTable extends Migration
             $table->increments('id');
             $table->integer('provider_id');
             $table->enum('status', ['passed','failed','pending']);
-            $table->unsignedTinyInteger('string');
+            $table->unsignedTinyInteger('score');
             $table->integer('failed');
             $table->timestamp('created_at');
             $table->foreign('provider_id')->references('id')->on('api_reference_providers');
