@@ -9,19 +9,11 @@ use App\Http\Requests\ReferencesAPIRequest;
 use App\Http\Resources\ReferencesAPIProvidersResource;
 use App\Http\Resources\ReferencesAPIResource;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
+use \Illuminate\Support\Facades\Validator;
 
 class ReferencesAPIController extends Controller
 {
-    private function _InsertAPIReference($request)
-    {
-        $reference = new APIReferences;
-
-        $reference->reference = $request->request->get('reference');
-        $reference->email = $request->request->get('email');
-
-        $reference->save();
-    }
-
     private function _APIReferenceProviders($reference, $providers) {
         foreach ($providers as $key => $row) {
             $provider = APIReferencesProvider::where(['reference' => $reference, 'provider' => $key])->first();
@@ -51,6 +43,44 @@ class ReferencesAPIController extends Controller
             $history->provider_id = $save->id;
             $history->save();
         }
+    }
+
+    private function _InsertAPIReference($request)
+    {
+        $reference = new APIReferences;
+
+        $reference->reference = $request->request->get('reference');
+        $reference->email = $request->request->get('email');
+
+        $reference->save();
+    }
+
+    private function _rules($request)
+    {
+        $rules = [
+            // Check that the reference exists
+            'reference'     => 'required|max:255',
+            // Check that email is valid
+            'email'         => 'required|email',
+            // Check that providers is an array
+            'providers'     => 'required|array'
+        ];
+
+        $providers = $request->get('providers');
+        if (!empty($providers)) {
+            foreach ($providers as $key => $row) {
+                // Check that the provider isn't too long
+                $rules['providers.'.$key] = 'required|max:255';
+                $rules['providers.'.$key.'.status'] = [
+                    'required',
+                    Rule::in('passed', 'failed', 'pending')
+                ];
+                $rules['providers.'.$key.'.score'] = 'required|numeric|between:0,50';
+                $rules['providers.'.$key.'.failed'] = 'required';
+            }
+        }
+
+        return $rules;
     }
 
     private function _UpdateAPIReference($update, $request) {
@@ -97,7 +127,10 @@ class ReferencesAPIController extends Controller
     public function store(ReferencesAPIRequest $request)
     {
         $request->authorize($request);
-        $request->rules();
+        $validator = Validator::make($request->all(), $this->_Rules($request));
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 400);
+        }
 
         $reference = $request->request->get('reference');
         $providers = $request->request->get('providers');
