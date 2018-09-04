@@ -10,7 +10,7 @@ use App\Http\Resources\ReferencesAPIProvidersResource;
 use App\Http\Resources\ReferencesAPIResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rule;
-use \Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Validator;
 
 class ReferencesAPIController extends Controller
 {
