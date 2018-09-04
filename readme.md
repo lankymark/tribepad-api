@@ -33,7 +33,7 @@ Use the command line in the new directory and run the following
 
 8.  Test at `http://localhost:8000/references` 
     
-9.  Download Postman / Fiddler 4 / any other API development environment. Use this to replicate the API POST to the ``/api/references`` route using a json structure below (this particular json will populate the record for the tests) the following
+9.  Download Postman / Fiddler 4 / any other API development environment. Use this to replicate the API POST to the ``/api/references`` route using a json structure below the following
 
 
     {

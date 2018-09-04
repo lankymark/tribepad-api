@@ -12,7 +12,7 @@ class CreateReferenceAPIValidationTest extends TestCase
     {
         return [
             'reference'     => 'test-'.date('Ymd'),
-            'email'         => 'test@test.com',
+            'email'         => 'testtest.com',
             'providers'     => [
                 'mind-x'    => [
                     'status'    => 'passed',
@@ -51,7 +51,7 @@ class CreateReferenceAPIValidationTest extends TestCase
         $data = $this->_mockData();
 
         $this->assertTrue(is_array($data));
-        $this->assertTrue(filter_var($data['email'], FILTER_VALIDATE_EMAIL) !== false);
+        $this->assertTrue(filter_var($data['email'], FILTER_VALIDATE_EMAIL) === false);
         $this->assertArrayHasKey('providers', $data);
         if (!empty($data['providers'])) {
             $provider = $data['providers']['mind-x'];
@@ -71,6 +71,19 @@ class CreateReferenceAPIValidationTest extends TestCase
             $this->assertTrue(in_array($provider['status'], ['passed', 'failed', 'pending']));
             $this->assertTrue(($provider['score'] >= 0) === false); // we expect this to be false as the value is -2
             $this->assertTrue($provider['score'] <= 0);
+
+            // Test that this data fails correctly
+            $response = $this->json('post', '/api/reference', $data);
+            $response->assertStatus(400);
+            $content = $response->content();
+            $this->assertJson($content);
+            $this->assertTrue($content !== null);
+            $content = json_decode($content, true);
+            $this->assertTrue(is_array($content));
+            $this->assertArrayHasKey('email', $content);
+            $this->assertArrayHasKey('providers.mind-x.score', $content);
+            $this->assertArrayHasKey('providers.talentq.score', $content);
+            $this->assertArrayHasKey('providers.sh1.status', $content);
         }
     }
 }

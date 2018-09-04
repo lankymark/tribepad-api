@@ -15,7 +15,7 @@ class DeleteReferenceAPITest extends TestCase
      */
     public function testExample()
     {
-        $this->delete('/api/reference/10')
+        $this->delete('/api/reference/test-'.date('Ymd'))
             ->assertStatus(200);
     }
 }

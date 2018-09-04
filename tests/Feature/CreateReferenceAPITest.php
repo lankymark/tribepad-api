@@ -53,5 +53,8 @@ class CreateReferenceAPITest extends TestCase
         $this->assertJson($original);
         $data = json_decode($original, true);
         $this->_checkKeys($data);
+
+        $response = $this->json('post', '/api/reference', $data);
+        $response->assertStatus(200);
     }
 }

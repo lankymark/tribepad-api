@@ -15,7 +15,7 @@ class GetReferenceProvidersAPITest extends TestCase
      */
     public function testExample()
     {
-        $response = $this->get('/api/reference/providers/10');
+        $response = $this->get('/api/reference/providers/test-'.date('Ymd'));
         $response->assertStatus(200);
 
         $content = $response->content();
@@ -24,8 +24,6 @@ class GetReferenceProvidersAPITest extends TestCase
         $content = json_decode($content, true);
         $this->assertTrue(is_array($content));
         $this->assertArrayHasKey('data', $content);
-        $this->assertArrayHasKey('meta', $content);
-        $this->assertArrayHasKey('links', $content);
 
         $data = $content['data'];
         if (!empty($data)) {
@@ -41,13 +39,5 @@ class GetReferenceProvidersAPITest extends TestCase
             $this->assertArrayHasKey('created_at', $data);
             $this->assertArrayHasKey('updated_at', $data);
         }
-        $meta = $content['meta'];
-        $this->assertArrayHasKey('current_page', $meta);
-        $this->assertArrayHasKey('last_page', $meta);
-        $links = $content['links'];
-        $this->assertArrayHasKey('first', $links);
-        $this->assertArrayHasKey('prev', $links);
-        $this->assertArrayHasKey('next', $links);
-        $this->assertArrayHasKey('last', $links);
     }
 }
