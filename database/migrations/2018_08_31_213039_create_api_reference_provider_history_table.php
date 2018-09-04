@@ -15,11 +15,11 @@ class CreateApiReferenceProviderHistoryTable extends Migration
     {
         Schema::create('api_reference_provider_history', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('provider_id');
+            $table->integer('provider_id', false, true);
             $table->enum('status', ['passed','failed','pending']);
             $table->unsignedTinyInteger('score');
             $table->integer('failed');
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->useCurrent();
             $table->foreign('provider_id')->references('id')->on('api_reference_providers');
         });
     }

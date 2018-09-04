@@ -32,14 +32,8 @@ Use the command line in the new directory and run the following
 7.  Run ``php artisan serve`` to fire up the server
 
 8.  Test at `http://localhost:8000/references` 
-
-9.  To run the feature and unit tests go to the root directory and use the following commands
-
-    ``cd vendor/bin``
     
-    ``phpunit --configuration ../../phpunit.xml``
-    
-10.  Download Postman / Fiddler 4 / any other API development environment. Use this to replicate the API POST to the ``/api/references`` route using a json structure below (this particular json will populate the record for the tests) the following
+9.  Download Postman / Fiddler 4 / any other API development environment. Use this to replicate the API POST to the ``/api/references`` route using a json structure below (this particular json will populate the record for the tests) the following
 
 
     {
@@ -50,22 +44,31 @@ Use the command line in the new directory and run the following
                 "status": "passed",
                 "score": 13,
                 "failed": 2
-        },
-        "shl": {
+            },
+            "shl": {
                 "status": "passed",
                 "score": 29,
                 "failed": 1
-        },
-        "talentq": {
+            },
+            "talentq": {
                 "status": "failed",
                 "score": 2,
-                 "failed": 25
+                "failed": 25
+            }
         }
     }
     
     
 _Note: POST request must be sent with the content type of ``application/json`` and follow the rules set out in the pdf. This API also a maximum length of JSON of a 1000 and uses IP whitelisting for added security. However, for testing purposes this can be commented out in ``App/Http/Requests/ReferencesAPIRequest.php``_    
+ 
+ ## Unit Testing
    
+To run the feature and unit tests go to the root directory and use the following commands
+   
+   ``cd vendor/bin``
+   
+   ``phpunit --configuration ../../phpunit.xml``
+       
 ## API Routes
 
 Get a singular reference
