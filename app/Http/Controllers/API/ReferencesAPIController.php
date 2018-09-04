@@ -113,7 +113,7 @@ class ReferencesAPIController extends Controller
     public function providers($id)
     {
         // Get all references
-        $providers = APIReferencesProvider::where('reference', $id)->orderBy('updated_at','DESC');
+        $providers = APIReferencesProvider::where('reference', $id)->orderBy('updated_at','DESC')->get();
 
         return ReferencesAPIProvidersResource::collection($providers);
     }
